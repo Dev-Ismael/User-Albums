@@ -44,7 +44,7 @@ class AlbumController extends Controller
         // Store in DB
         try {
             $album = Album::create( $requestData );
-                return redirect() -> route('home') -> with( [ "success" => " Album store successfully"] ) ;
+                return redirect() -> route('album.show' , $album->id ) -> with( [ "success" => " Album store successfully"] ) ;
             if(!$album)
                 return redirect() -> route('home')-> with( [ "failed" => "Error at store opration"] ) ;
         } catch (\Exception $e) {

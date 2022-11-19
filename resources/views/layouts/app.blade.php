@@ -18,10 +18,8 @@
 
 
     <!---- dropzone ------>
-    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-
-    <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
-
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
 </head>
 <body>

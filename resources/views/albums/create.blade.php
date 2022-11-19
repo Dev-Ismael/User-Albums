@@ -16,7 +16,8 @@
                             <!------ name ------>
                             <div class="form-group">
                                 <label for="name"> Album Name </label>
-                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Type Name..."
+                                <input type="text" name="name" id="name"
+                                    class="form-control @error('name') is-invalid @enderror" placeholder="Type Name..."
                                     value="{{ old('name') }}" />
                                 @error('name')
                                     <div class="invalid-feedback d-block">{{ $message }}.</div>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\ImageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +23,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('album', AlbumController::class);
+// Route::resource('image', ImageController::class);
+
+
+Route::post('/store/{album}', [App\Http\Controllers\ImageController::class, 'store'])->name('image.store');

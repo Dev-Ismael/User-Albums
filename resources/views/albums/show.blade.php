@@ -6,11 +6,13 @@
             <div class="col-md-8">
                 <div class="card">
 
-                    <div class="card-header"> Show Album  <strong> {{ $album->name }} </strong> </div>
+                    <div class="card-header"> Album  <strong> {{ $album->name }} </strong> </div>
 
                     <div class="card-body">
 
-                        
+                        <form action="{{ route("image.store", [ 'album' => $album ]) }}" method="POST" class="dropzone mt-2" id="my-awesome-dropzone">
+                            @csrf
+                        </form>
 
                     </div>
 
