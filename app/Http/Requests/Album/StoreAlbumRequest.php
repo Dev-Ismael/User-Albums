@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Album;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAlbumRequest extends FormRequest
+class StoreAlbumRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateAlbumRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateAlbumRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => [ 'required' , 'string' , 'min:8', 'max:100' ],
         ];
     }
 }

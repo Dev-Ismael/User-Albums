@@ -6,18 +6,20 @@
             <div class="col-md-8">
                 <div class="card">
 
-                    <div class="card-header"> Create Album </div>
+                    <div class="card-header"> Edit Album </div>
 
                     <div class="card-body">
 
-                        <form action="{{ route('album.store') }}" method="POST">
+                        <form action="{{ route('album.update', $album->id) }}" method="POST">
+
                             @csrf
+                            @method("PUT")
 
                             <!------ name ------>
                             <div class="form-group">
                                 <label for="name"> Album Name </label>
                                 <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Type Name..."
-                                    value="{{ old('name') }}" />
+                                    value="{{old('name', $album->name)}}"/>
                                 @error('name')
                                     <div class="invalid-feedback d-block">{{ $message }}.</div>
                                 @enderror

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -20,9 +21,12 @@ class HomeController extends Controller
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
-     */
+    */
+    
     public function index()
     {
-        return view('home');
+        $albums = Album::get();
+        return view('home' , compact('albums'));
     }
+
 }

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
-use App\Http\Requests\StoreAlbumRequest;
-use App\Http\Requests\UpdateAlbumRequest;
+use App\Http\Requests\Album\StoreAlbumRequest;
+use App\Http\Requests\Album\UpdateAlbumRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AlbumController extends Controller
 {
@@ -36,7 +37,19 @@ class AlbumController extends Controller
      */
     public function store(StoreAlbumRequest $request)
     {
-        //
+        // save all request in one variable
+        $requestData = $request->all();
+        $requestData += [ 'user_id' => Auth::id() ];
+
+        // Store in DB
+        try {
+            $album = Album::create( $requestData );
+                return redirect() -> route('home') -> with( [ "success" => " Album store successfully"] ) ;
+            if(!$album)
+                return redirect() -> route('home')-> with( [ "failed" => "Error at store opration"] ) ;
+        } catch (\Exception $e) {
+            return redirect() -> route('home')-> with( [ "failed" => "Error at store opration"] ) ;
+        }
     }
 
     /**
@@ -47,7 +60,8 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        //
+        $album = Album::where('id',$album->id)->first();
+        return view("albums.show" , compact('album'));
     }
 
     /**
@@ -58,7 +72,9 @@ class AlbumController extends Controller
      */
     public function edit(Album $album)
     {
-        //
+        // find id in Db With Error 404
+        $album = Album::findOrFail($album->id);
+        return view("albums.edit", compact("album"));
     }
 
     /**
@@ -70,7 +86,21 @@ class AlbumController extends Controller
      */
     public function update(UpdateAlbumRequest $request, Album $album)
     {
-        //
+        // find id in Db With Error 404
+        $album = Album::findOrFail($album->id);
+
+        // save all request in one variable
+        $requestData = $request->all();
+
+        // Store in DB
+        try {
+            $update = $album-> update( $requestData );
+                return redirect() -> route('home') -> with( [ "success" => " Album store successfully"] ) ;
+            if(!$update)
+                return redirect() -> route('home')-> with( [ "failed" => "Error at store opration"] ) ;
+        } catch (\Exception $e) {
+            return redirect() -> route('home')-> with( [ "failed" => "Error at store opration"] ) ;
+        }
     }
 
     /**
@@ -81,6 +111,17 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
-        //
+        // find id in Db With Error 404
+        $album = Album::findOrFail($album->id);
+
+        // Delete Record from DB
+        try {
+            $delete = $album->delete();
+                return redirect() -> route('home')-> with( [ "success" => " Album deleted successfully"] ) ;
+            if(!$delete)
+                return redirect() -> route('home')-> with( [ "failed" => "Error at delete opration"] ) ;
+        } catch (\Exception $e) {
+            return redirect() -> route('home')-> with( [ "failed" => "Error at delete opration"] ) ;
+        }
     }
 }
