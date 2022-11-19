@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('album_id');
             $table->timestamps();
         });
     }

@@ -18,7 +18,7 @@
                         {{ __('You are logged in!') }}
 
                         &nbsp;
-                        <button class="btn btn-success">Create New Album</button>
+                        <a href="{{ route("album.create") }}" class="btn btn-success">Create New Album</a>
                     </div>
 
                 </div>

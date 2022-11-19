@@ -15,6 +15,14 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+
+    <!---- dropzone ------>
+    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+
+    <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+
+
 </head>
 <body>
     <div id="app">
