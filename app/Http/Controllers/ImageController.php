@@ -86,9 +86,10 @@ class ImageController extends Controller
      * @param  \App\Models\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function show(Album $album)
+    public function show(Image $image)
     {
-
+        $image = Image::where('id',$image->id)->with('album')->first();
+        return view("images.show" , compact('image'));
     }
 
     /**

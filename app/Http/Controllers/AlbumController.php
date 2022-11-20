@@ -60,7 +60,7 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        $album = Album::where('id',$album->id)->first();
+        $album = Album::where('id',$album->id)->with('images')->first();
         return view("albums.show" , compact('album'));
     }
 

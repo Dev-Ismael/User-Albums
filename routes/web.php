@@ -23,7 +23,11 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('album', AlbumController::class);
-// Route::resource('image', ImageController::class);
 
 
 Route::post('/store/{album}', [App\Http\Controllers\ImageController::class, 'store'])->name('image.store');
+Route::get('/image/{image}', [App\Http\Controllers\ImageController::class, 'show'])->name('image.show');
+
+
+
+

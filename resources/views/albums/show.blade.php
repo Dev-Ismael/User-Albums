@@ -16,6 +16,18 @@
 
                     </div>
 
+
+                </div>
+
+                <!------------->
+                <div class="row mt-3">
+                    @foreach ( $album->images as $image )
+                        <div class="col-md-6 mt-3">
+                            <a href="{{ route('image.show' , $image->id ) }}">
+                                <img src="{{ asset("images/".$image->name) }}" alt="album-img" class="img-fluid rounded">
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
 
             </div>
