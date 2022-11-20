@@ -9,15 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AlbumController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -60,6 +51,8 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
+        // find id in Db With Error 404
+        $album = Album::findOrFail($album->id);
         $album = Album::where('id',$album->id)->with('images')->first();
         return view("albums.show" , compact('album'));
     }
@@ -73,7 +66,10 @@ class AlbumController extends Controller
     public function edit(Album $album)
     {
         // find id in Db With Error 404
-        $album = Album::findOrFail($album->id);
+        $album = Album::where([ ['id' , $album->id] , ['user_id', Auth::id()] ])->first();
+        if(!$album){
+            return abort(404);
+        }
         return view("albums.edit", compact("album"));
     }
 
@@ -87,7 +83,10 @@ class AlbumController extends Controller
     public function update(UpdateAlbumRequest $request, Album $album)
     {
         // find id in Db With Error 404
-        $album = Album::findOrFail($album->id);
+        $album = Album::where([ ['id' , $album->id] , ['user_id', Auth::id()] ])->first();
+        if(!$album){
+            return abort(404);
+        }
 
         // save all request in one variable
         $requestData = $request->all();
@@ -95,7 +94,7 @@ class AlbumController extends Controller
         // Store in DB
         try {
             $update = $album-> update( $requestData );
-                return redirect() -> route('home') -> with( [ "success" => " Album store successfully"] ) ;
+                return redirect() -> route('home') -> with( [ "success" => " Album update successfully"] ) ;
             if(!$update)
                 return redirect() -> route('home')-> with( [ "failed" => "Error at store opration"] ) ;
         } catch (\Exception $e) {
@@ -112,7 +111,10 @@ class AlbumController extends Controller
     public function destroy(Album $album)
     {
         // find id in Db With Error 404
-        $album = Album::findOrFail($album->id);
+        $album = Album::where([ ['id' , $album->id] , ['user_id', Auth::id()] ])->first();
+        if(!$album){
+            return abort(404);
+        }
 
         // Delete Record from DB
         try {

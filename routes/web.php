@@ -22,11 +22,14 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('album', AlbumController::class);
+// Album
+Route::resource('album', AlbumController::class)->except('index');
 
-
+// image
 Route::post('/store/{album}', [App\Http\Controllers\ImageController::class, 'store'])->name('image.store');
 Route::get('/image/{image}', [App\Http\Controllers\ImageController::class, 'show'])->name('image.show');
+Route::post('/image/{image}', [App\Http\Controllers\ImageController::class, 'update'])->name('image.update');
+Route::delete('/image/{image}', [App\Http\Controllers\ImageController::class, 'destroy'])->name('image.destroy');
 
 
 

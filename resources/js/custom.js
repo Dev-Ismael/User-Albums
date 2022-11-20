@@ -13,6 +13,17 @@ $(function() {
         }
     });
 
+    // Delete Image
+    $("a.delete-image").on( 'click', function(e){
+        e.preventDefault();
+        if(confirm("Are you sure you want to delete this?")){
+            $("form#delete-image").submit();
+        }
+        else{
+            return false;
+        }
+    });
+
 
 
 });

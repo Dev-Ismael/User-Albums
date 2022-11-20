@@ -25,13 +25,20 @@ return new class extends Migration
 
         ################ Images ###################
         Schema::table('images', function (Blueprint $table) {
+            $table->foreign("user_id")
+            ->references('id')
+            ->on("users")
+            ->onDelete("cascade")
+            ->onUpdate("cascade");
+        });
+        Schema::table('images', function (Blueprint $table) {
             $table->foreign("album_id")
             ->references('id')
             ->on("albums")
             ->onDelete("cascade")
             ->onUpdate("cascade");
         });
-        
+
     }
 
     /**

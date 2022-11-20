@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('album_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }

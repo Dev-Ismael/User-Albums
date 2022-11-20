@@ -22,11 +22,11 @@
                     <!--------------- Session Alert ----------------->
                     <div class="container">
                         @if (session()->has('success'))
-                            <div class="alert alert-success" role="alert">
+                            <div class="alert alert-success text-center" role="alert">
                                 {{ session()->get('success') }}
                             </div>
                         @elseif(session()->has('failed'))
-                            <div class="alert alert-danger" role="alert">
+                            <div class="alert alert-danger text-center" role="alert">
                                 {{ session()->get('failed') }}
                             </div>
                         @endif
