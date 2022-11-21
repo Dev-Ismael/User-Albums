@@ -6,6 +6,21 @@
 
 import './bootstrap';
 import './custom';
+
+
+
+// Initialise DropZone form control
+Dropzone.options.dropzoneJsForm = {
+    maxFilesize: 5, // Mb
+    acceptedFiles: ".jpeg,.jpg,.png",
+    init: function () {
+        // Set up any event handlers
+        this.on("queuecomplete", function (file) {
+            location.reload();
+        });
+    }
+};
+
 import { createApp } from 'vue';
 
 /**

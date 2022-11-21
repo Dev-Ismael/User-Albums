@@ -10,7 +10,7 @@
 
                     <div class="card-body">
 
-                        <form action="{{ route("image.store", [ 'album' => $album ]) }}" method="POST" class="dropzone mt-2" id="my-awesome-dropzone">
+                        <form action="{{ route("image.store", [ 'album' => $album ]) }}"  id="dropzoneJsForm" method="POST" class="dropzone mt-2">
                             @csrf
                         </form>
 

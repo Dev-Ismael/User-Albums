@@ -46,7 +46,7 @@
                     @else
                         <!------ For Loop ------->
                         @foreach ( $albums as $album )
-                            <div class="col-md-4">
+                            <div class="col-md-4 mt-2">
                                 <div class="card w-75 text-center">
                                     <div class="card-body">
                                         <h5 class="card-title"> {{ $album ->name }} </h5>
