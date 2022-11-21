@@ -53,7 +53,7 @@
 
                         </form>
 
-                        <img src="{{ asset("images/".$image->name) }}" alt="album-img" class="img-fluid rounded">
+                        <img src="{{ asset("storage/images/".$image->name) }}" alt="album-img" class="img-fluid rounded">
 
                     </div>
 

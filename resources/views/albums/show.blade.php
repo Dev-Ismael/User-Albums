@@ -41,7 +41,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         <a href="{{ route('image.show' , $image->id ) }}">
-                                            <img src="{{ asset("images/".$image->name) }}" alt="album-img" class="img-fluid rounded">
+                                            <img src="{{ asset("storage/images/".$image->name) }}" alt="album-img" class="img-fluid rounded">
                                         </a>
                                     </h5>
 

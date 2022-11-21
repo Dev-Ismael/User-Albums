@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Album;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAlbumRequest extends FormRequest
@@ -24,7 +25,7 @@ class StoreAlbumRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [ 'required' , 'string' , 'min:8', 'max:100' ],
+            'name' => [ 'required' , 'string' , 'min:8', 'max:100'  , Rule::unique('albums', 'name')->ignore($this->album)],
         ];
     }
 }

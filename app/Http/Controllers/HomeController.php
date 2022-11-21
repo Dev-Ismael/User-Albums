@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -22,10 +23,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
     */
-    
+
     public function index()
     {
-        $albums = Album::get();
+        $albums = Album::where('user_id', Auth::id() )->get();
         return view('home' , compact('albums'));
     }
 

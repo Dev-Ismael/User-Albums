@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Http\Requests\Image\UpdateImageRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -26,11 +27,8 @@ class ImageController extends Controller
             $img_extention = $request -> file -> getClientOriginalExtension();
             $img_name = rand(1000000,10000000) . "." . $img_extention;   // name => 32632.png
 
-            // Path
-            $path = "images" ;
-
             // Upload
-            $request -> file -> move( $path , $img_name );
+            $request -> file -> storeAs("public/images/" , $img_name );
 
             // Add images names in request array
             $requestData = [];
@@ -66,7 +64,7 @@ class ImageController extends Controller
      */
     public function show(Image $image)
     {
-        $albums = Album::get();
+        $albums = Album::where('user_id', Auth::id() )->get();
         $image = Image::where('id',$image->id)->with('album')->first();
         return view("images.show" , compact('image', 'albums'));
     }
@@ -79,12 +77,11 @@ class ImageController extends Controller
      * @param  \App\Models\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateImageRequest $request, Album $album)
+    public function update(UpdateImageRequest $request, Image $image)
     {
-
         // find id in Db With Error 404
-        $album = Album::where([ ['id' , $request->album_id] , ['user_id', Auth::id()] ])->first();
-        if(!$album){
+        $image = Image::where([ ['id' , $image->id] , ['user_id', Auth::id()] ])->with('album')->first();
+        if(!$image){
             return abort(404);
         }
 
@@ -93,8 +90,8 @@ class ImageController extends Controller
 
         // Store in DB
         try {
-            $update = $album-> update( $requestData );
-                return redirect() -> back() -> with( [ "success" => " image moved to ". $album->name ." album"] ) ;
+            $update = $image-> update( $requestData );
+                return redirect() -> back() -> with( [ "success" => "image moved to ". $image->album->name ] ) ;
             if(!$update)
                 return redirect() -> back()-> with( [ "failed" => "Error at update opration"] ) ;
         } catch (\Exception $e) {
@@ -112,10 +109,14 @@ class ImageController extends Controller
     public function destroy(Image $image)
     {
         // find id in Db With Error 404
-        $image = Image::findOrFail($image->id);
+        $image = Image::where([ ['id' , $image->id] , ['user_id', Auth::id()] ])->first();
+        if(!$image){
+            return abort(404);
+        }
 
         // Delete Record from DB
         try {
+            Storage::delete('public/images/'. $image->name );
             $delete = $image->delete();
                 return redirect() -> back()-> with( [ "success" => "Image deleted successfully"] ) ;
             if(!$delete)
